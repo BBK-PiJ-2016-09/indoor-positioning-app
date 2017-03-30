@@ -1,2 +1,2 @@
 # indoor-positioning-app
-An indoor positioning app for MoCIOT
+An indoor positioning app for MoCIOT.
