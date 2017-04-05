@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">IamWatchingYou</string>
-    <string name="corseLocation_access_denied">You will not be able to use this app if you don\'t
-    give us access to your location.</string>
-    <string name="indoortatlas_api_key">asd</string>
-    <string name="indooratlas_api_secret">asd</string>
+    <string name="indoortatlas_api_key">b2692f9d-3b5f-4021-9baa-cd3266797846</string>
+    <string name="indooratlas_api_secret">m7k+tc63IoYoQEi+Z2dmKJD72YDNpL4nnJ2eXM/r/nq09w5+ioVERD6F8rISjim8dfAmo10qKqkY8Hg/ziIZv3gw8nkBbkIrAkE+mf9v1jcg0hVKGn5C7Y1JpDCVbg==</string>
+    <string name="indooratlas_floor_plan_id">fee6a517-7f9f-47bd-b98f-86f0b5e2d14a</string>
 </resources>

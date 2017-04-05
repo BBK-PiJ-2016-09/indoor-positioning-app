@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "804847302745-pndf9h5dsslk8u1t5bem5gpp4efvl4o7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bignerdranch.android.iamwatchingyou",
+            "certificate_hash": "a453daf1fae5b7b595ee0455916f5c4ed9895c71"
+          }
+        },
+        {
           "client_id": "804847302745-d2vgvhaklesina3tu3mbl6vviij6p46u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
