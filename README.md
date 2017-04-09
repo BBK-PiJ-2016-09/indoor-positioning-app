@@ -28,7 +28,7 @@
   --------
 
      o If you want to be informed about new code releases, bug fixes,
-       security fixes, general news and information about the Apache server
+       security fixes, general news and information about IAmWatchingYou
        send us an e-mail to: vas.davios@gmail.com or
        enricserrasanz@gmail.com
 
@@ -38,7 +38,7 @@
      o If you have a concrete bug report for IAmWatchingYou please start an issue
        on the github repository, specifying the bug
 
-     o If you want to participate in actively developing Apache please
+     o If you want to participate in actively developing IAmWatchingYou please
        send an e-mail to vas.davios@gmail.com
 
 
