@@ -22,5 +22,6 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.bignerdranch.android.iamwatchingyou", appContext.getPackageName());
+
     }
 }

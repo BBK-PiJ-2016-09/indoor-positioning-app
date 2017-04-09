@@ -47,8 +47,7 @@ public class FloorPlanActivity extends AppCompatActivity {
     private DownloadManager mDownloadManager;
     private static final String TAG = "IamWatchingYouApp ";
     //Creating a reference to the Firebase database we are going to use with this application.
-    FirebaseDatabase db = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = db.getReference("User_Records");
+
     private final int CODE = 12312;
     private Records mRecord;
     private PositioningMethods pointsOfInterest = PositioningMethods.getInstance();
@@ -160,36 +159,49 @@ public class FloorPlanActivity extends AppCompatActivity {
             Log.d(TAG, "Latitude " + location.getLatitude());
             Log.d(TAG, "Longitude "+ location.getLongitude());
 
+            // We delegate to Records what to do with a record object.
+            mRecord = new Records(location);
 
-
-            //We create an object with user's location and the time to pass to our database
-            mRecord = new Records(location.getLatitude(), location.getLongitude(),
-                    location.getTime(), myRef);
             List <Position> nearbyPointsOfInterest =
                     pointsOfInterest.isNearPointsOfInterest(location.getLatitude(),
-                    location.getLongitude());
+                            location.getLongitude(), 6);
 
-            if (nearbyPointsOfInterest.size() > 0 &&
-                    pointsOfInterest.getToastFlag()) {
-                Log.d(TAG, String.valueOf(pointsOfInterest.getToastFlag()));
-                for (Position position: nearbyPointsOfInterest) {
-                    Toast.makeText(FloorPlanActivity.this, position.getDescription(),
-                            Toast.LENGTH_LONG)
-                            .show();
+            if (nearbyPointsOfInterest.size() == 0) {
+                //We don't want to spam the user with toasts, so we wait until
+                // he is far from enough (more than the error) of a POI to
+                // create a toast again
+                pointsOfInterest.setToastFlag(true);
+            } else {
+                nearbyPointsOfInterest =
+                        pointsOfInterest.isNearPointsOfInterest(
+                                location.getLatitude(),
+                                location.getLongitude(),
+                                3);
+
+                if (nearbyPointsOfInterest.size() > 0 &&
+                        pointsOfInterest.getToastFlag()) {
+                    for (Position position : nearbyPointsOfInterest) {
+                        Toast.makeText(
+                                FloorPlanActivity.this,
+                                position.getDescription(),
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                    pointsOfInterest.setToastFlag(false);
                 }
-                pointsOfInterest.setToastFlag(false);
-                Log.d(TAG, String.valueOf(pointsOfInterest.getToastFlag()));
-
             }
 
             if (mFloorPlanImage != null && mFloorPlanImage.isReady()) {
-                IALatLng latLng = new IALatLng(location.getLatitude(), location.getLongitude());
+                IALatLng latLng = new IALatLng(
+                        location.getLatitude(),
+                        location.getLongitude());
+
                 PointF point = mFloorPlan.coordinateToPoint(latLng);
                 mFloorPlanImage.setDotCenter(point);
                 mFloorPlanImage.postInvalidate();
             }
-
         }
+
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
             //N/A

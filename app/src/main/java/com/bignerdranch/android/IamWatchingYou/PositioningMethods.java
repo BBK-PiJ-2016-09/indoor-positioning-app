@@ -5,19 +5,24 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+/**
+ * Singleton for positioning calculations and verification.
+ */
 public class PositioningMethods {
 
+    /**
+     * the TAG for logs.
+     *
+     */
     private static final String TAG = "PositioningMethods";
 
     private static PointsOfInterest pointsOfInterest = PointsOfInterest.getInstance();
+    private static PositioningMethods ourInstance = new PositioningMethods();
 
     /**
      * Flag that determines whether a toast should be made or has already been.
      */
     private boolean toastFlag = true;
-    private static PositioningMethods ourInstance = new PositioningMethods();
 
     private PositioningMethods() {}
 
@@ -55,6 +60,7 @@ public class PositioningMethods {
                                 double p2lat,
                                 double p2long) {
 
+        //radius of the sphere
         final int earthRadiusInMeters = 6371009;
         double meanLatitude = (p1lat + p2lat) / 2;
         double deltaLatitude = (p1lat - p2lat);
@@ -89,23 +95,15 @@ public class PositioningMethods {
      * @return a list of points of interest at a distance < than a threshold>
      */
     public  List<Position> isNearPointsOfInterest(double latitude,
-                                                  double longitude) {
+                                                  double longitude, double threshold) {
         List<Position> pointsOfInterestNearby = new ArrayList<>();
         List<Position> pointsOfInterestFarEnough = new ArrayList<>();
         double latitudeRad = Math.toRadians(latitude);
         double longitudeRad = Math.toRadians(longitude);
         for(Position position: pointsOfInterest.getPointsOfInterest()) {
-            if (areTheyCloseEnough(position, latitudeRad, longitudeRad, 3)) {
+            if (areTheyCloseEnough(position, latitudeRad, longitudeRad, threshold)) {
                 pointsOfInterestNearby.add(position);
             }
-            if (areTheyCloseEnough(position, latitudeRad, longitudeRad, 6)) {
-                pointsOfInterestFarEnough.add(position);
-            }
-        }
-
-        if (pointsOfInterestFarEnough.size() == 0 ) {
-            // If the user is far enough we allow toasts again
-            setToastFlag(true);
         }
         return pointsOfInterestNearby;
     }
